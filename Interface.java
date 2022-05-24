@@ -23,7 +23,7 @@ public class Interface extends Application {
 	public void settings(Stage primaryStage) {
 		try {
 			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Settings.fxml"));
-			Scene scene = new Scene(root,600,400);
+			Scene scene = new Scene(root,600,300);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
