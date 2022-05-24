@@ -27,70 +27,39 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 
-public class RecordTest{
-	
-	public static void main(String[] args) {
-		
-		try
-		{
-			AudioFormat audioFormat = new AudioFormat (AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
-			
-			DataLine.Info dataInfo= new DataLine.Info((TargetDataLine.class), audioFormat);
-					if(!AudioSystem.isLineSupported(dataInfo)) 
-					{
-						System.out.println("Not Supported");
-					}
-			
-			TargetDataLine targetLine = (TargetDataLine)AudioSystem.getLine(dataInfo);
-			targetLine.open();
-			
-			JOptionPane.showMessageDialog(null, "Hit ok to start recording");
-			targetLine.start();
-		
-		
-			Thread audioRecorderThread = new Thread() {
-			
-			@Override public void run()
-			{
-				AudioInputStream recordingStream = new AudioInputStream(targetLine);
-				File outputFile = new File ("C:/Test/TEST.wav");
-				try
-				{
-					AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile);
-					}
-				catch (IOException ex)
-				{
-					System.out.println(ex);
-				}
-				
-				System.out.println("Stopped Recording");
-			
-			}
-		
-		
-			
-			
-			
-		};
-		
-			audioRecorderThread.start();
-			JOptionPane.showMessageDialog(null,"Hit ok to stop recording");
-			targetLine.stop();
-			targetLine.close();
-			
+public class RecordTest extends Application{
+
+	public void start(Stage primaryStage) {
+		try {
+			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Design.fxml"));
+			Scene scene = new Scene(root,600,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 		
-		catch(Exception e)
-		{
-			System.out.println("Not Supported");
-		}
+	
+	public static void main(String[] args) {
+		launch(args);
 		
-		
+	}
+
+	
 	
 
 }
-}
+	
+
