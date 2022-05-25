@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
-
-import sun.audio.player;
 import java.io.*;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -103,7 +101,7 @@ public class Interface extends Application{
 	public void play(ActionEvent e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		
 		try {
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:/Test/TEST2.wav").getAbsoluteFile());
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:/Test/TEST 2.wav").getAbsoluteFile());
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
