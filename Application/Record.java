@@ -12,6 +12,9 @@ public class Record {
 	private Thread audioInput;
 	
 	
+	//Testing
+	
+	
 	
 	
 
