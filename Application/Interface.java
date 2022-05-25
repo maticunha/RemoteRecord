@@ -1,8 +1,14 @@
 package Application;
 	
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Scanner;
 
+import sun.audio.player;
+import java.io.*;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -12,7 +18,10 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 import javax.swing.JOptionPane;
-
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException; 
+import javax.sound.sampled.SourceDataLine; 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.stage.Modality;
@@ -25,7 +34,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
 
 
 public class Interface extends Application{
@@ -78,16 +86,16 @@ public class Interface extends Application{
 		RIP.setStyle("-fx-text-fill: #fff2f2");
 	}
 	
-	public void play(ActionEvent e) {
-		try
-	    {
-	        Clip clip = AudioSystem.getClip();
-	        clip.open(AudioSystem.getAudioInputStream(new File("C:/Test/Test.wav")));
-	        clip.start();
-	    }
-	    catch (Exception exc)
-	    {
-	        exc.printStackTrace(System.out);
-	    }
-	} 
+	public void play(ActionEvent e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:/Test/TEST2.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+			} catch(Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+			}
 	}
+}
