@@ -13,7 +13,7 @@
    <children>
       <Button fx:id="Preferences" layoutX="514.0" mnemonicParsing="false" onAction="#open_preferences" prefHeight="25.0" prefWidth="85.0" text="Preferences" />
       <Text layoutX="246.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Record" />
-      <Text layoutX="256.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RemoteRecord" />
+      <Text id="Label" fx:id="Label" layoutX="256.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="application.css" text="RemoteRecord" />
       <Circle fill="#ff1f1f" layoutX="265.0" layoutY="199.0" radius="69.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="WHITE" layoutX="265.0" layoutY="200.0" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
       <Button id="1" fx:id="Record" layoutX="190.0" layoutY="125.0" mnemonicParsing="false" onAction="#recording" opacity="0.0" prefHeight="149.0" prefWidth="150.0" stylesheets="@application.css" text="Record" textAlignment="CENTER">

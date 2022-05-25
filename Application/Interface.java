@@ -54,6 +54,9 @@ public class Interface extends Application{
 	@FXML
 	private Text RIP;
 	
+	@FXML
+	private Text Label;
+	
 	public void start(Stage primaryStage) {
 		try {
 			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Design.fxml"));
