@@ -51,6 +51,9 @@ public class Interface extends Application{
 	private Button Play;
 	
 	@FXML
+	private Button About;
+	
+	@FXML
 	private Text RIP;
 	
 	public void start(Stage primaryStage) {
@@ -67,6 +70,17 @@ public class Interface extends Application{
 	
 	public void open_preferences(ActionEvent actionEVent) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("Preferences.fxml"));
+		
+		Scene scene = new Scene(root);
+		Stage primaryStage = new Stage();
+		primaryStage.setScene(scene);
+		
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+		primaryStage.show();
+	}
+	
+	public void open_about(ActionEvent actionEVent) throws IOException{
+		Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));
 		
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();
