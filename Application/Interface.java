@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -35,6 +36,15 @@ import javafx.fxml.FXMLLoader;
 
 
 public class Interface extends Application{
+	
+	@FXML
+	private BorderPane Border;
+	
+	@FXML
+	private Pane Pane;
+	
+	@FXML
+	private Pane Header;
 	
 	@FXML
     private Button Record;

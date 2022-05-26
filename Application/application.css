@@ -1,1 +1,13 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#Pane{
+	-fx-background-color:"#B6B6B6";
+}
+
+#Header{
+	-fx-background-color:"#DC1A21";
+}
+
+#Boarder{
+	fx-border-color:"black";
+}
