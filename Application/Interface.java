@@ -27,9 +27,13 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,19 +57,38 @@ public class Interface extends Application{
 	private Button Stop;
 	
 	@FXML
-	private Button Preferences;
+	private MenuItem Preferences;
 	
 	@FXML
 	private Button Play;
 	
 	@FXML
-	private Button About;
+	private MenuItem About;
 	
 	@FXML
 	private Text RIP;
 	
 	@FXML
 	private Text Label;
+	
+	@FXML
+	private AnchorPane Control_Panel;
+	
+	@FXML
+	private Box box1;
+	
+	@FXML
+	private Box box2;
+	
+	@FXML
+	private Box box3;
+	
+	@FXML
+	private Box box4;
+	
+	@FXML
+	private Box box5;
+	
 	
 	public void start(Stage primaryStage) {
 		try {
