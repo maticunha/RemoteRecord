@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,7 +21,7 @@
       </Text>
       <Pane fx:id="Header" prefHeight="103.0" prefWidth="600.0" styleClass="application.css">
          <children>
-            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+            <MenuBar layoutY="2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="600.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -48,17 +47,13 @@
             </ImageView>
          </children>
       </Pane>
-      <TitledPane animated="false" layoutX="-1.0" layoutY="97.0" minWidth="-Infinity" prefHeight="306.0" prefWidth="602.0" style="-fx-background-color: black;" text="Control Panel">
-         <content>
-            <AnchorPane fx:id="Control_Panel" prefHeight="279.0" prefWidth="600.0" style="-fx-background-color: black;">
-               <children>
-                  <Button fx:id="Play" layoutX="23.0" layoutY="45.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="103.0" styleClass="application.css" text="Play" textAlignment="CENTER" />
-                  <Button id="1" fx:id="Record" layoutX="180.0" layoutY="45.0" mnemonicParsing="false" onAction="#recording" prefHeight="76.0" prefWidth="101.0" stylesheets="@application.css" text="Record" textAlignment="CENTER" />
-                  <Button fx:id="Stop" layoutX="23.0" layoutY="163.0" mnemonicParsing="false" onAction="#stop" prefHeight="79.0" prefWidth="104.0" text="Stop" />
-               </children>
-            </AnchorPane>
-         </content>
-      </TitledPane>
+      <AnchorPane fx:id="Control_Panel" layoutX="-8.0" layoutY="98.0" prefHeight="310.0" prefWidth="608.0" style="-fx-background-color: black;">
+         <children>
+            <Button fx:id="Play" layoutX="23.0" layoutY="45.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="103.0" styleClass="application.css" text="Play" textAlignment="CENTER" />
+            <Button id="1" fx:id="Record" layoutX="180.0" layoutY="45.0" mnemonicParsing="false" onAction="#recording" prefHeight="76.0" prefWidth="101.0" stylesheets="@application.css" text="Record" textAlignment="CENTER" />
+            <Button fx:id="Stop" layoutX="23.0" layoutY="163.0" mnemonicParsing="false" onAction="#stop" prefHeight="79.0" prefWidth="104.0" text="Stop" />
+         </children>
+      </AnchorPane>
    </children>
    <effect>
       <Blend />

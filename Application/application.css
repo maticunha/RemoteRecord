@@ -16,6 +16,10 @@
 	fx-background-color:"black";
 }
 
+$MenuBar{
+	fx-background-color:"black";
+}
+
 @keyframes quiet {
   25%{
     transform: scaleY(.6);
