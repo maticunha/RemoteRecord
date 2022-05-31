@@ -17,6 +17,7 @@ public class Record {
 	private TargetDataLine dataLine; 
 	private Thread audioInputThread;
 	private AudioInputStream recording; 
+	private FileName fileName = new FileName();
 	
 	
 	/*
@@ -44,7 +45,7 @@ public class Record {
 				
 				@Override public void run () {
 				recording = new AudioInputStream(dataLine);
-				File outputFile = new File ("C:/Test/TEST.wav");
+				File outputFile = new File (fileName.getFileName());
 				try
 				{
 					AudioSystem.write(recording, AudioFileFormat.Type.WAVE, outputFile);
@@ -85,6 +86,10 @@ public class Record {
 		catch(Exception e) {
 			System.out.print(e);
 		}
+	}
+	
+	public String getFileName() {
+		return fileName.getFileName(); 
 	}
 	
 	
