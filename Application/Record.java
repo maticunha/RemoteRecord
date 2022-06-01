@@ -17,7 +17,7 @@ public class Record {
 	private TargetDataLine dataLine; 
 	private Thread audioInputThread;
 	private AudioInputStream recording; 
-	private FileName fileName = new FileName();
+	private FileName WAVFile = new FileName();
 	
 	
 	/*
@@ -45,7 +45,7 @@ public class Record {
 				
 				@Override public void run () {
 				recording = new AudioInputStream(dataLine);
-				File outputFile = new File (fileName.getFileName());
+				File outputFile = WAVFile.getFile();
 				try
 				{
 					AudioSystem.write(recording, AudioFileFormat.Type.WAVE, outputFile);
@@ -62,7 +62,7 @@ public class Record {
 		{
 			System.out.println("Not Supported");
 		};
-	}
+	} //end constructor 
 	
 	//starts the recording
 	public void start () {
@@ -75,7 +75,7 @@ public class Record {
 			System.out.print(e);
 		}
 		
-	}
+	} //end start
 	
 	//stops the recording
 	public void stop() {
@@ -86,13 +86,11 @@ public class Record {
 		catch(Exception e) {
 			System.out.print(e);
 		}
-	}
+	} //end stop
 	
 	public String getFileName() {
-		return fileName.getFileName(); 
+		return WAVFile.getFileName(); 
 	}
-	
-	
 	
 	
 

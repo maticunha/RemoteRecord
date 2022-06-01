@@ -117,4 +117,8 @@ public class Interface extends Application{
 			ex.printStackTrace();
 			}
 	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
