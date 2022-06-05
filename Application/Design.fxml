@@ -19,9 +19,9 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Pane fx:id="Header" prefHeight="103.0" prefWidth="600.0" styleClass="application.css">
+      <Pane fx:id="Header" prefHeight="136.0" prefWidth="600.0" styleClass="application.css">
          <children>
-            <MenuBar layoutY="2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="600.0">
+            <MenuBar layoutY="2.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="600.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -40,20 +40,29 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <ImageView fitHeight="149.0" fitWidth="188.0" layoutX="-17.0" layoutY="-14.0">
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="-15.0" layoutY="-23.0">
                <image>
-                  <Image url="@../../../Downloads/RemoteRecord.png" />
+                  <Image url="@../../../Downloads/RemoteRecord%20(3).png" />
+               </image>
+            </ImageView>
+            <Button id="1" fx:id="Record" layoutX="185.0" layoutY="46.0" mnemonicParsing="false" onAction="#recording" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER" />
+            <Button fx:id="Stop" layoutX="466.0" layoutY="46.0" mnemonicParsing="false" onAction="#stop" prefHeight="76.0" prefWidth="101.0" text="Stop" />
+            <Button fx:id="Play" layoutX="325.0" layoutY="46.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="63.0" fitWidth="71.0">
+                     <image>
+                        <Image url="@play%20button.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <ImageView fitHeight="152.0" fitWidth="180.0" layoutX="145.0" layoutY="8.0">
+               <image>
+                  <Image url="@Record.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <AnchorPane fx:id="Control_Panel" layoutX="-8.0" layoutY="98.0" prefHeight="310.0" prefWidth="608.0" style="-fx-background-color: black;">
-         <children>
-            <Button fx:id="Play" layoutX="23.0" layoutY="45.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="103.0" styleClass="application.css" text="Play" textAlignment="CENTER" />
-            <Button id="1" fx:id="Record" layoutX="180.0" layoutY="45.0" mnemonicParsing="false" onAction="#recording" prefHeight="76.0" prefWidth="101.0" stylesheets="@application.css" text="Record" textAlignment="CENTER" />
-            <Button fx:id="Stop" layoutX="23.0" layoutY="163.0" mnemonicParsing="false" onAction="#stop" prefHeight="79.0" prefWidth="104.0" text="Stop" />
-         </children>
-      </AnchorPane>
+      <AnchorPane fx:id="Control_Panel" layoutX="-8.0" layoutY="136.0" prefHeight="284.0" prefWidth="608.0" style="-fx-background-color: black;" />
    </children>
    <effect>
       <Blend />

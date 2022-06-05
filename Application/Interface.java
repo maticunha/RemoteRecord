@@ -24,6 +24,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -89,10 +90,13 @@ public class Interface extends Application{
 	@FXML
 	private Box box5;
 	
+	 private double xOffset = 0;
+	 private double yOffset = 0;
 	
 	public void start(Stage primaryStage) {
 		try {
 			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Design.fxml"));
+		
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -112,6 +116,8 @@ public class Interface extends Application{
 		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		primaryStage.show();
 	}
+	
+	
 	
 	public void open_about(ActionEvent actionEVent) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));

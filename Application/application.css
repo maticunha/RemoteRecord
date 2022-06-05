@@ -7,11 +7,6 @@
 #Header{
 	-fx-background-color:"#DC1A21";
 }
-
-#Boarder{
-	fx-border-color:"black";
-}
-
 #Control_Panel{
 	fx-background-color:"black";
 }
@@ -20,148 +15,57 @@ $MenuBar{
 	fx-background-color:"black";
 }
 
-@keyframes quiet {
-  25%{
-    transform: scaleY(.6);
-  }
-  50%{
-    transform: scaleY(.4);
-  }
-  75%{
-    transform: scaleY(.8);
-  }
+#Play{
+       -fx-background-color:
+        linear-gradient(#a34313, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
 }
 
-@keyframes normal {
-  25%{
-    transform: scaleY(1);
-  }
-  50%{
-    transform: scaleY(.4);
-  }
-  75%{
-    transform: scaleY(.6);
-  }
-}
-@keyframes loud {
-  25%{
-    transform: scaleY(1);
-  }
-  50%{
-    transform: scaleY(.4);
-  }
-  75%{
-    transform: scaleY(1.2);
-  }
+#Play:hover{
+	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 }
 
-.boxContainer{
-  display: flex;
-  justify-content: space-between;
-  height: 64px;
-  boxSize: 8px;
-  gutter: 4px;
-  width: 5px;
+#Stop{
+	 -fx-background-color:
+        linear-gradient(#a34313, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
 }
 
-.Box{
-  
-  height: 100%;
-  width: boxSize;
-  background: #12E2DC;
-  animation-duration: 1.2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  border-radius: 8px;
+#Stop:hover{
+	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 }
 
-#box1{
-  animation-name: quiet;
+#Record{
+	-fx-background-color:
+        linear-gradient(#a34313, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
 }
 
-#box2{
-  animation-name: normal;
-}
 
-#box3{
-  animation-name: quiet;
-}
-
-#box4{
-  animation-name: loud;
-}
-
-#box5{
-  animation-name: quiet;
-}
-
-#Pane {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-}
-
-.Button {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-Record {
-    c: goldenrod;
-    color: goldenrod;
-    font-size: 16px;
-    border: 0.3px;
-    border-radius: 0.5px;
-    width: 12em;
-    height: 3em;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: sans-serif;
-    letter-spacing: 0.1em;
-    text-align: center;
-    line-height: 3em;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: 0.5s;
-    margin: 1em;
-}
-
-Record span {
-    position: absolute;
-    width: 25%;
-    height: 100%;
-    background-color: goldenrod;
-    transform: translateY(150%);
-    border-radius: 50%;
-    transition: 0.5s;
-    transition-delay: calc((var(--n) - 1) * 0.1s);
-    z-index: -1;
-}
-
-Record:hover {
-    color: black;
-}
-
-nav ul li:hover span {
-    transform: translateY(0) scale(2);
-}
-
-nav ul li span:nth-child(1) {
-    --n: 1;
-}
-
-nav ul li span:nth-child(2) {
-    --n: 2;
-}
-
-nav ul li span:nth-child(3) {
-    --n: 3;
-}
-
-nav ul li span:nth-child(4) {
-    --n: 4;
+#Record:hover{
+	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 }
