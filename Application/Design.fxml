@@ -40,11 +40,6 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="-15.0" layoutY="-23.0">
-               <image>
-                  <Image url="@../../../Downloads/RemoteRecord%20(3).png" />
-               </image>
-            </ImageView>
             <Button id="1" fx:id="Record" layoutX="185.0" layoutY="46.0" mnemonicParsing="false" onAction="#recording" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER" />
             <Button fx:id="Stop" layoutX="466.0" layoutY="46.0" mnemonicParsing="false" onAction="#stop" prefHeight="76.0" prefWidth="101.0" text="Stop" />
             <Button fx:id="Play" layoutX="325.0" layoutY="46.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER">
@@ -58,6 +53,11 @@
             <ImageView fitHeight="152.0" fitWidth="180.0" layoutX="145.0" layoutY="8.0">
                <image>
                   <Image url="@Record.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="213.0" fitWidth="219.0" layoutX="-22.0" layoutY="-24.0">
+               <image>
+                  <Image url="@RemoteRecord%20Logo.png" />
                </image>
             </ImageView>
          </children>
