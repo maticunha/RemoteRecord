@@ -57,6 +57,8 @@ public class Interface extends Application{
 	@FXML
 	private Text Label;
 	
+	Record r1 = new Record();
+	
 	public void start(Stage primaryStage) {
 		try {
 			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Design.fxml"));
@@ -94,17 +96,19 @@ public class Interface extends Application{
 
 	public void recording(ActionEvent e) {
 		RIP.setFill(Color.RED);
+		r1.start();
 	}
 	
 	public void stop(ActionEvent e) {
 		RIP.setFill(Color.WHITE);
 		RIP.setStyle("-fx-text-fill: #fff2f2");
+		r1.stop();
 	}
 	
 	public void play(ActionEvent e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		
 		try {
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:/Test/TEST 2.wav").getAbsoluteFile());
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(r1.getFileName()).getAbsoluteFile());
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
@@ -112,5 +116,9 @@ public class Interface extends Application{
 			System.out.println("Error with playing sound.");
 			ex.printStackTrace();
 			}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
