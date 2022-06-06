@@ -41,15 +41,7 @@
               </menus>
             </MenuBar>
             <Button id="1" fx:id="Record" layoutX="185.0" layoutY="46.0" mnemonicParsing="false" onAction="#recording" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER" />
-            <Button fx:id="Stop" layoutX="466.0" layoutY="46.0" mnemonicParsing="false" onAction="#stop" prefHeight="76.0" prefWidth="101.0" text="Stop" />
-            <Button fx:id="Play" layoutX="325.0" layoutY="46.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER">
-               <graphic>
-                  <ImageView fitHeight="63.0" fitWidth="71.0">
-                     <image>
-                        <Image url="@play%20button.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
+            <Button fx:id="Stop" layoutX="325.0" layoutY="46.0" mnemonicParsing="false" onAction="#stop" prefHeight="76.0" prefWidth="101.0" text="Stop" />
             <ImageView fitHeight="152.0" fitWidth="180.0" layoutX="145.0" layoutY="8.0">
                <image>
                   <Image url="@Record.png" />
@@ -60,6 +52,14 @@
                   <Image url="@RemoteRecord%20Logo.png" />
                </image>
             </ImageView>
+            <Button fx:id="Play" layoutX="461.0" layoutY="46.0" mnemonicParsing="false" onAction="#play" prefHeight="76.0" prefWidth="101.0" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="63.0" fitWidth="71.0">
+                     <image>
+                        <Image url="@play%20button.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </Pane>
       <AnchorPane fx:id="Control_Panel" layoutX="-8.0" layoutY="136.0" prefHeight="284.0" prefWidth="608.0" style="-fx-background-color: black;" />
