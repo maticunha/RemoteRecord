@@ -3,11 +3,29 @@ package Application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 
+
 public class Preferences extends Application {
+	
+	@FXML
+	private Button GoogleDriveLogin;
+	
+	@FXML
+	private TextField GoogleDriveLink;
+	
+	@FXML
+	private Button OneDriveLogin;
+	
+	@FXML
+	private TextField OneDriveLink;
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
