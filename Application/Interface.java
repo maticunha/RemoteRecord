@@ -145,7 +145,6 @@ public class Interface extends Application{
 	public void stop(ActionEvent e) {
 		RIP.setFill(Color.WHITE);
 		RIP.setStyle("-fx-text-fill: #fff2f2");
-		Hidden.setVisible(true);
 		r1.stop();
 	}
 	
