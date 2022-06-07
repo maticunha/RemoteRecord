@@ -25,6 +25,12 @@ public class Preferences extends Application {
 	@FXML
 	private TextField OneDriveLink;
 	
+	@FXML
+	private Button Save;
+	
+	@FXML 
+	Button Cancel;
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -37,6 +43,8 @@ public class Preferences extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	public static void main(String[] args) {
