@@ -92,6 +92,9 @@ public class Interface extends Application{
 	@FXML
 	private Box box5;
 	
+	@FXML
+	private Button Hidden;
+	
   private double xOffset = 0;
 	private double yOffset = 0;
 
@@ -100,7 +103,7 @@ public class Interface extends Application{
 		try {
 			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Design.fxml"));
 		
-			Scene scene = new Scene(root,600,400);
+			Scene scene = new Scene(root,600,450);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -142,6 +145,7 @@ public class Interface extends Application{
 	public void stop(ActionEvent e) {
 		RIP.setFill(Color.WHITE);
 		RIP.setStyle("-fx-text-fill: #fff2f2");
+		Hidden.setVisible(true);
 		r1.stop();
 	}
 	
