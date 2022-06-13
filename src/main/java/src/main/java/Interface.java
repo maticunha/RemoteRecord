@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.io.*;
 import javax.sound.sampled.AudioFileFormat;
@@ -21,6 +23,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine; 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,6 +32,7 @@ import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -38,9 +43,10 @@ import javafx.scene.shape.Box;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 
 
-public class Interface extends Application{
+public class Interface extends Application implements Initializable{
 	
 	@FXML
 	private BorderPane Border;
@@ -95,8 +101,16 @@ public class Interface extends Application{
 	@FXML
 	private Button Hidden;
 	
-  private double xOffset = 0;
+	@FXML
+	private ListView<String> driveFolders;
+	
+	private String[] driveFileNames;
+	private String[] driveFileId;
+	
+	private double xOffset = 0;
 	private double yOffset = 0;
+	
+	private String driveFolderID = "root";
 
 	
 	public void start(Stage primaryStage) {
@@ -164,4 +178,40 @@ public class Interface extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			
+			driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
+			driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
+			driveFolders.getItems().addAll(driveFileNames);
+			
+		} catch (IOException | GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		driveFolders.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				int index = driveFolders.getSelectionModel().getSelectedIndex();
+				driveFolderID = driveFileId[index];
+				driveFolders.getItems().removeAll(driveFileNames);
+				
+				try {
+					driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
+					driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
+					driveFolders.getItems().addAll(driveFileNames);
+				} catch (IOException | GeneralSecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				
+				
+			}
+		
+			});
+}}
