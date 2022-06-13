@@ -1,0 +1,32 @@
+plugins {
+  id 'application'
+  id 'java'
+  id 'eclipse'
+  id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+mainClassName = 'Interface'
+sourceCompatibility = 11
+targetCompatibility = 11
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+	version = "18.0.1"
+	modules = ['javafx.controls', 'javafx.fxml', 'javafx.base',
+				'javafx.graphics']
+}
+	
+
+
+dependencies {
+    implementation 'com.google.api-client:google-api-client:1.33.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.32.1'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev20211107-1.32.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
