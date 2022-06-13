@@ -1,12 +1,12 @@
-package Application;
+package src.main.java;
 	
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
-
+//test
 public class About extends Application {
 	@Override
 	public void start(Stage primaryStage) {

@@ -1,0 +1,52 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#Pane{
+	-fx-background-color:"#B6B6B6";
+}
+
+#Header{
+	-fx-background-color:"#DC1A21";
+}
+#Control_Panel{
+	fx-background-color:"black";
+}
+
+$MenuBar{
+	fx-background-color:"black";
+}
+
+#Play{
+     
+}
+
+#Play:hover{
+	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
+}
+
+#Stop{
+	 
+}
+
+#Stop:hover{
+	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
+}
+
+#Record{
+
+}
+
+#Record:hover{
+	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
+}
