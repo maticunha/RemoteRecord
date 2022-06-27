@@ -78,6 +78,9 @@ public class Interface extends Application implements Initializable{
 	@FXML
 	private Text Label;
 	
+	@FXML
+	private Button back;
+	
 	Record r1 = new Record();
   
   @FXML
@@ -111,6 +114,7 @@ public class Interface extends Application implements Initializable{
 	private double yOffset = 0;
 	
 	private String driveFolderID = "root";
+	private String driveFolderName = "My Drive";
 
 	
 	public void start(Stage primaryStage) {
@@ -124,6 +128,7 @@ public class Interface extends Application implements Initializable{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void open_preferences(ActionEvent actionEVent) throws IOException{
@@ -199,11 +204,13 @@ public class Interface extends Application implements Initializable{
 				int index = driveFolders.getSelectionModel().getSelectedIndex();
 				driveFolderID = driveFileId[index];
 				driveFolders.getItems().removeAll(driveFileNames);
+				System.out.println(driveFolderID);
 				
 				try {
 					driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
 					driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
 					driveFolders.getItems().addAll(driveFileNames);
+					
 				} catch (IOException | GeneralSecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -214,4 +221,9 @@ public class Interface extends Application implements Initializable{
 			}
 		
 			});
-}}
+	}//initialize
+	
+	public void backFolder () {
+		
+}
+}

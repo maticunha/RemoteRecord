@@ -1,20 +1,3 @@
-package src.main.java;
-
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.Drive.Files.Get;
-import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,12 +7,27 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
+
+
 /* class to demonstarte use of Drive files list API */
-public class GoogleDriveAPI {
+public class DriveQuickstart {
     /** Application name. */
     private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
     /** Global instance of the JSON factory. */
-    private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
+    private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     /** Directory to store authorization tokens for this application. */
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
@@ -48,7 +46,7 @@ public class GoogleDriveAPI {
      */
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = GoogleDriveAPI.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = DriveQuickstart.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }
@@ -66,7 +64,7 @@ public class GoogleDriveAPI {
         return credential;
     }
 
-    public static String[] getFileNames(String fileID) throws IOException, GeneralSecurityException {
+    public static void main(String... args) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -75,87 +73,34 @@ public class GoogleDriveAPI {
 
         // Print the names and IDs for up to 10 files.
         FileList result = service.files().list()
-        		.setQ("mimeType = 'application/vnd.google-apps.folder' and '" + fileID + "' in parents")
+        		.setQ("mimeType = 'application/vnd.google-apps.folder'")
+        		.setSpaces("drive")
                 .setFields("nextPageToken, files(id, name)")
                 .execute();
         List<File> files = result.getFiles();
-        
-        String[] fileNames = new String[files.size()];
-        int index = 0;
         if (files == null || files.isEmpty()) {
-            return null;
+            System.out.println("No files found.");
         } else {
-        		for (File file : files) {
-        			fileNames[index] = file.getName();
-        			index++;
+            System.out.println("Files:");
+            for (File file : files) {
+                System.out.printf("Parent Folder: %s (%s)%n", file.getName(), file.getId());
+                
+                FileList childrenResult = service.files().list()
+                		.setQ("'" +file.getId() + "' in parents")
+                		.setSpaces("drive")
+                        .setFields("nextPageToken, files(id, name)")
+                        .execute();
+                List<File> children = childrenResult.getFiles();
+                if (children == null || children.isEmpty()) {
+                	System.out.println("End of directory");
+                } else {
+                	System.out.printf("Within %s%n", file.getName());
+                	for (File child : children) {
+                		System.out.printf("	%s (%s)%n", child.getName(), child.getId());
+                	}
+                }
+               
             }
-        		return fileNames;
-        }
-		
-    }
-    
-    public static String[] getFileID(String fileID) throws IOException, GeneralSecurityException {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+            System.out.println("End of search"); 
+        }}}
 
-        // Print the names and IDs for up to 10 files.
-        FileList result = service.files().list()
-        		.setQ("mimeType = 'application/vnd.google-apps.folder' and '" + fileID + "' in parents")
-                .setFields("nextPageToken, files(id, name)")
-                .execute();
-        List<File> files = result.getFiles();
-        
-        String[] fileNames = new String[files.size()];
-        int index = 0;
-        if (files == null || files.isEmpty()) {
-            return null;
-        } else {
-        		for (File file : files) {
-        			
-        			if (file.getParents() == null || !(file.getParents().contains(fileID))) {
-        				service.files().update(file.getId(), file).setAddParents(fileID).execute();
-        			}
-        			fileNames[index] = file.getId();
-        			index++;
-            }
-        		return fileNames;
-        }
-     
-    	  
-      }
-    	
-    public static void getParentsID(String fileID) throws IOException, GeneralSecurityException {
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        // Print the names and IDs for up to 10 files.
-      File file = service.files().get(fileID).execute();
-      
-      List <String> parents = file.getParents();
-      
-      for(String p : parents) {
-    	  System.out.println(p);
-      }
-        
-        
-    	
-    }
-    
-    public static void getFolderName(String fileID) throws IOException, GeneralSecurityException {
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-        File file = service.files().get(fileID).execute();
-        
-       
-
-
-    }
-    
-}
