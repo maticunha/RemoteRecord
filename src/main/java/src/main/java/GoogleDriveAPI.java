@@ -6,6 +6,7 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -127,35 +128,19 @@ public class GoogleDriveAPI {
     	  
       }
     	
-    public static void getParentsID(String fileID) throws IOException, GeneralSecurityException {
+    public static void uploadFile(String fileName, List<String> folderID, java.io.File recording) throws IOException, GeneralSecurityException {
+    	
     	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-
-        // Print the names and IDs for up to 10 files.
-      File file = service.files().get(fileID).execute();
-      
-      List <String> parents = file.getParents();
-      
-      for(String p : parents) {
-    	  System.out.println(p);
-      }
-        
-        
-    	
+    	File fileMetadata = new File();
+    	fileMetadata.setName(fileName);
+    	fileMetadata.setParents(folderID);
+    	FileContent mediaContent = new FileContent("audio/wav", recording);
+        File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
     }
     
-    public static void getFolderName(String fileID) throws IOException, GeneralSecurityException {
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-        File file = service.files().get(fileID).execute();
-        
-       
-
-
-    }
+    
     
 }

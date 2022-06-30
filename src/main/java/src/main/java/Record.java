@@ -92,6 +92,10 @@ public class Record {
 		return WAVFile.getFileName(); 
 	}
 	
+	public File getFile() {
+		return WAVFile.getFile();
+	}
+	
 	
 
 }
