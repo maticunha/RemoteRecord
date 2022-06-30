@@ -16,6 +16,7 @@ import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.google.api.services.drive.model.GeneratedIds;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -134,11 +135,16 @@ public class GoogleDriveAPI {
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
+        
+        GeneratedIds gID = service.files().generateIds().setCount(1).execute();
+        List<String> newID = gID.getIds();
     	File fileMetadata = new File();
     	fileMetadata.setName(fileName);
     	fileMetadata.setParents(folderID);
+    	fileMetadata.setId(newID.get(0));
+    	
     	FileContent mediaContent = new FileContent("audio/wav", recording);
-        File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
+        File file = service.files().create(fileMetadata, mediaContent).setFields("id: '" + newID.get(0) + "'").execute();
     }
     
     
