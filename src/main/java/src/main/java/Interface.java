@@ -36,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -108,6 +109,9 @@ public class Interface extends Application implements Initializable{
 	@FXML
 	private ListView<String> driveFolders = new ListView<String>();
 	
+	@FXML
+	private Label currentFolder = new Label(); 
+	
 	private String[] driveFileNames;
 	private String[] driveFileId;
 	
@@ -117,6 +121,7 @@ public class Interface extends Application implements Initializable{
 	private static String driveFolderID = "root";
 	private static String rootFolderID = null;
 	private static String lastID = "root";
+	private static String backToRoot = "Back to MyDrive...";
 
 	
 	public void start(Stage primaryStage) {
@@ -194,6 +199,7 @@ public class Interface extends Application implements Initializable{
 			driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
 			driveFolders.getItems().addAll(driveFileNames);
 			rootFolderID = GoogleDriveAPI.getParentOf(driveFileId[0]);
+			currentFolder.setText("Current Folder: MyDrive");
 			System.out.println(rootFolderID);
 			
 		} catch (IOException | GeneralSecurityException e) {
@@ -209,15 +215,8 @@ public class Interface extends Application implements Initializable{
 				System.out.println("Now changing list...");
 				int index = driveFolders.getSelectionModel().getSelectedIndex();
 				
-				 if (driveFileNames == null || driveFolders.getSelectionModel().getSelectedItem().equals("Back...")) { //if back is hit/if there is an empty directory 
-					 try {
-						String tfid = GoogleDriveAPI.getParentOf(driveFolderID);
-						driveFolderID = tfid;
-						System.out.println(driveFolderID);
-					} catch (IOException | GeneralSecurityException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				 if (driveFileNames == null || driveFolders.getSelectionModel().getSelectedItem().equals(backToRoot)) { //if back is hit/if there is an empty directory 
+					 driveFolderID = rootFolderID; 
 				
 				 } else { //if navigating to the next folder
 					driveFolderID = driveFileId[index];
@@ -236,16 +235,20 @@ public class Interface extends Application implements Initializable{
 				
 				
 					if (driveFileId == null) { //add to empty directory 
-						driveFolders.getItems().add("Back...");
+						driveFolders.getItems().add(backToRoot);
+						currentFolder.setText("Current Folder: " + newValue);
+						
 						
 					
 					} else if (driveFolderID.equals(rootFolderID)) { //if going back would bring you to the root directory 
 						driveFolders.getItems().addAll(driveFileNames);
 						System.out.println(GoogleDriveAPI.getParentOf(driveFolderID));
+						currentFolder.setText("Current Folder: MyDrive");
 								
 					} else { //going into a new directory 
 						driveFolders.getItems().addAll(driveFileNames);
-						driveFolders.getItems().add("Back...");
+						driveFolders.getItems().add(backToRoot);
+						currentFolder.setText("Current Folder: " + newValue);
 					}
 					
 					
