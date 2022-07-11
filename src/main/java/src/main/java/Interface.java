@@ -121,15 +121,13 @@ public class Interface extends Application implements Initializable{
 	private double xOffset = 0;
 	private double yOffset = 0;
 	
-<<<<<<< HEAD
+
 	private static String driveFolderID = "root";
 	private static String rootFolderID = null;
 	private static String lastID = "root";
 	private static String backToRoot = "Back to MyDrive...";
-=======
-	private String driveFolderID = "root";
 	private String driveFolderName = "My Drive";
->>>>>>> mati
+
 
 	
 	public void start(Stage primaryStage) {
@@ -220,19 +218,23 @@ public class Interface extends Application implements Initializable{
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-<<<<<<< HEAD
-=======
+
 				int index = driveFolders.getSelectionModel().getSelectedIndex();
-				driveFolderID = driveFileId[index];
-				driveFolders.getItems().removeAll(driveFileNames);
-				System.out.println(driveFolderID);
->>>>>>> mati
+				
+
 				
 				System.out.println("Now changing list...");
-				int index = driveFolders.getSelectionModel().getSelectedIndex();
 				
-				 if (driveFileNames == null || driveFolders.getSelectionModel().getSelectedItem().equals(backToRoot)) { //if back is hit/if there is an empty directory 
-					 driveFolderID = rootFolderID; 
+				
+				 if (driveFolders.getSelectionModel().getSelectedItem().contains("Back to")) { //if back is hit/if there is an empty directory 
+					 String tid;
+					try {
+						tid = GoogleDriveAPI.getParentOf(driveFolderID);
+						driveFolderID = tid; 
+					} catch (IOException | GeneralSecurityException e) {
+						e.printStackTrace();
+					}
+					 
 				
 				 } else { //if navigating to the next folder
 					driveFolderID = driveFileId[index];
@@ -247,12 +249,11 @@ public class Interface extends Application implements Initializable{
 					
 					driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
 					driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
-<<<<<<< HEAD
-				
+	
 				
 				
 					if (driveFileId == null) { //add to empty directory 
-						driveFolders.getItems().add(backToRoot);
+						driveFolders.getItems().add("Back to: " + GoogleDriveAPI.getNameOf(GoogleDriveAPI.getParentOf(driveFolderID)));
 						currentFolder.setText("Current Folder: " + newValue);
 						
 						
@@ -262,19 +263,21 @@ public class Interface extends Application implements Initializable{
 						System.out.println(GoogleDriveAPI.getParentOf(driveFolderID));
 						currentFolder.setText("Current Folder: MyDrive");
 								
-					} else { //going into a new directory 
+					} else {
 						driveFolders.getItems().addAll(driveFileNames);
-						driveFolders.getItems().add(backToRoot);
+						driveFolders.getItems().add("Back to " + GoogleDriveAPI.getNameOf(GoogleDriveAPI.getParentOf(driveFolderID)));
 						currentFolder.setText("Current Folder: " + newValue);
-					}
+					
+				
+					}	
 					
 					
 				
 
-=======
-					driveFolders.getItems().addAll(driveFileNames);
+
 					
->>>>>>> mati
+					
+
 				} catch (IOException | GeneralSecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -288,7 +291,7 @@ public class Interface extends Application implements Initializable{
 			
 		
 			});
-<<<<<<< HEAD
+
 		
 		System.out.println("Ready for next input...");
 	}
@@ -305,13 +308,13 @@ public class Interface extends Application implements Initializable{
 			
 		}
 	}
-}
 
-=======
-	}//initialize
+
+
+	//initialize
 	
 	public void backFolder () {
 		
 }
 }
->>>>>>> mati
+
