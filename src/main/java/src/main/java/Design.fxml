@@ -72,8 +72,12 @@
                </image>
             </ImageView>
             <ListView fx:id="driveFolders" layoutX="261.0" layoutY="166.0" prefHeight="200.0" prefWidth="200.0" />
+<<<<<<< HEAD
             <Button fx:id="Back" layoutX="472.0" layoutY="166.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
             <Label fx:id="currentFolder" layoutX="261.0" layoutY="375.0" text="Current Folder: " textFill="WHITE" />
+=======
+            <Button fx:id="back" layoutX="261.0" layoutY="373.0" mnemonicParsing="false" onAction="#backFolder" text="Back" />
+>>>>>>> mati
          </children></AnchorPane>
    </children>
    <effect>

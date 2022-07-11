@@ -80,6 +80,9 @@ public class Interface extends Application implements Initializable{
 	@FXML
 	private Text Label;
 	
+	@FXML
+	private Button back;
+	
 	Record r1 = new Record();
   
   @FXML
@@ -118,10 +121,15 @@ public class Interface extends Application implements Initializable{
 	private double xOffset = 0;
 	private double yOffset = 0;
 	
+<<<<<<< HEAD
 	private static String driveFolderID = "root";
 	private static String rootFolderID = null;
 	private static String lastID = "root";
 	private static String backToRoot = "Back to MyDrive...";
+=======
+	private String driveFolderID = "root";
+	private String driveFolderName = "My Drive";
+>>>>>>> mati
 
 	
 	public void start(Stage primaryStage) {
@@ -135,6 +143,7 @@ public class Interface extends Application implements Initializable{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void open_preferences(ActionEvent actionEVent) throws IOException{
@@ -211,6 +220,13 @@ public class Interface extends Application implements Initializable{
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+<<<<<<< HEAD
+=======
+				int index = driveFolders.getSelectionModel().getSelectedIndex();
+				driveFolderID = driveFileId[index];
+				driveFolders.getItems().removeAll(driveFileNames);
+				System.out.println(driveFolderID);
+>>>>>>> mati
 				
 				System.out.println("Now changing list...");
 				int index = driveFolders.getSelectionModel().getSelectedIndex();
@@ -231,6 +247,7 @@ public class Interface extends Application implements Initializable{
 					
 					driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
 					driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
+<<<<<<< HEAD
 				
 				
 				
@@ -254,6 +271,10 @@ public class Interface extends Application implements Initializable{
 					
 				
 
+=======
+					driveFolders.getItems().addAll(driveFileNames);
+					
+>>>>>>> mati
 				} catch (IOException | GeneralSecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -267,6 +288,7 @@ public class Interface extends Application implements Initializable{
 			
 		
 			});
+<<<<<<< HEAD
 		
 		System.out.println("Ready for next input...");
 	}
@@ -285,3 +307,11 @@ public class Interface extends Application implements Initializable{
 	}
 }
 
+=======
+	}//initialize
+	
+	public void backFolder () {
+		
+}
+}
+>>>>>>> mati
