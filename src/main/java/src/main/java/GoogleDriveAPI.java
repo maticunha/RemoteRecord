@@ -12,11 +12,19 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
+<<<<<<< HEAD
+import com.google.api.services.drive.Drive.Files.Update;
+import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
+import com.google.api.services.drive.model.User;
+=======
 import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.GeneratedIds;
+>>>>>>> mati
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -112,7 +120,7 @@ public class GoogleDriveAPI {
         
         String[] fileNames = new String[files.size()];
         int index = 0;
-        if (files == null || files.isEmpty()) {
+        if (files.isEmpty()) {
             return null;
         } else {
         		for (File file : files) {
@@ -147,6 +155,30 @@ public class GoogleDriveAPI {
         File file = service.files().create(fileMetadata, mediaContent).setFields("id: '" + newID.get(0) + "'").execute();
     }
     
+<<<<<<< HEAD
+    public static String getParentOf(String fileID) throws IOException, GeneralSecurityException {
+    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        FileList result = service.files().list()
+        		.setQ("mimeType = 'application/vnd.google-apps.folder'")
+                .setFields("nextPageToken, files(id, name, parents)")
+                .execute();
+        List<File> files = result.getFiles();
+        
+         
+        
+        for (File f: files) {
+        	if (f.getId().equals(fileID)) {
+        		return f.getParents().get(0); 
+        	}
+        }
+		return null;
+        
+    }
+=======
     
     
+>>>>>>> mati
 }
