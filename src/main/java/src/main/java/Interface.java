@@ -9,6 +9,8 @@ import java.security.GeneralSecurityException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -107,13 +109,13 @@ public class Interface extends Application implements Initializable{
 	private Button Hidden;
 	
 	@FXML
-	private Button Back;
-	
-	@FXML
 	private ListView<String> driveFolders = new ListView<String>();
 	
 	@FXML
 	private Label currentFolder = new Label(); 
+	
+	@FXML
+	public Button uploadButton; 
 	
 	private String[] driveFileNames;
 	private String[] driveFileId;
@@ -126,7 +128,7 @@ public class Interface extends Application implements Initializable{
 	private static String rootFolderID = null;
 	private static String lastID = "root";
 	private static String backToRoot = "Back to MyDrive...";
-	private String driveFolderName = "My Drive";
+	private static String driveFolderName = "My Drive";
 
 
 	
@@ -191,6 +193,19 @@ public class Interface extends Application implements Initializable{
 			System.out.println("Error with playing sound.");
 			ex.printStackTrace();
 			}
+	}
+	
+	public void upload (ActionEvent e) {
+		String name = "test";
+		File recording = new File("/RemoteRecord/Recordings/2022-06-06 171904.WAV");
+		List<String> parents = new ArrayList<>(1);
+		parents.add(driveFolderID);
+		try {
+			GoogleDriveAPI.uploadFile(name, parents, recording);
+		} catch (IOException | GeneralSecurityException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) throws IOException, GeneralSecurityException {
@@ -296,25 +311,9 @@ public class Interface extends Application implements Initializable{
 		System.out.println("Ready for next input...");
 	}
 	
-	public void backButton () throws IOException, GeneralSecurityException {
-		if (!driveFolderID.equals("root")) {
-			String tfid = GoogleDriveAPI.getParentOf(driveFolderID);
-			driveFolderID = tfid;
-			
-			driveFolders.getItems().removeAll(driveFileNames);
-			driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
-			driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
-			driveFolders.getItems().addAll(driveFileNames);
-			
-		}
-	}
-
-
-
-	//initialize
 	
-	public void backFolder () {
-		
-}
+	
+	
+	
 }
 

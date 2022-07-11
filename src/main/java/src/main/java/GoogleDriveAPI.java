@@ -125,21 +125,21 @@ public class GoogleDriveAPI {
       }
     	
     public static void uploadFile(String fileName, List<String> folderID, java.io.File recording) throws IOException, GeneralSecurityException {
-    	
+    	System.out.println("Now uploading...");
     	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         
-        GeneratedIds gID = service.files().generateIds().setCount(1).execute();
-        List<String> newID = gID.getIds();
+        String gID = service.files().generateIds().setCount(1).toString();
     	File fileMetadata = new File();
     	fileMetadata.setName(fileName);
-    	fileMetadata.setParents(folderID);
-    	fileMetadata.setId(newID.get(0));
+    	fileMetadata.setId(gID);
     	
     	FileContent mediaContent = new FileContent("audio/wav", recording);
-        File file = service.files().create(fileMetadata, mediaContent).setFields("id: '" + newID.get(0) + "'").execute();
+        File file = service.files().create(fileMetadata, mediaContent).execute();
+        
+        System.out.println("Upload Complete!");
     }
     
 

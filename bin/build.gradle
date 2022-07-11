@@ -1,7 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'application'
+apply plugin: 'org.openjfx.javafxplugin' version '0.0.10'
 
-mainClassName = 'src/main/java/DriveQuickstart'
+
+mainClassName = 'src/main/java/Interface'
 sourceCompatibility = 11
 targetCompatibility = 11
 version = '1.0'
@@ -16,4 +19,9 @@ dependencies {
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.32.1'
     implementation 'com.google.apis:google-api-services-drive:v3-rev20211107-1.32.1'
 
+}
+
+javafx {
+    version = "18.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.media', 'javafx.graphics' ]
 }
