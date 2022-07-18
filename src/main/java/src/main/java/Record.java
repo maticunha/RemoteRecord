@@ -25,7 +25,7 @@ public class Record {
 	 * @param audioFormat dictates formating for recording
 	 * @param dataInfo creates a usable list of info for class TargetDataLine
 	 * @param dataLine is the data stream to recording
-	 * @param audioInputThread allows us to do something else in the program while the recording is runing
+	 * @param audioInputThread allows us to do something else in the program while the recording is running
 	 * @param recording writes the recording to a file using dataLine
 	 */
 	
@@ -43,7 +43,9 @@ public class Record {
 			
 			audioInputThread = new Thread() {
 				
+				
 				@Override public void run () {
+				System.out.println("Starting Recording");
 				recording = new AudioInputStream(dataLine);
 				File outputFile = WAVFile.getFile();
 				try

@@ -1,5 +1,13 @@
 package src.main.java;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+import java.util.List;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -12,27 +20,10 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
-<<<<<<< HEAD
-import com.google.api.services.drive.Drive.Files.Update;
-import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
-import com.google.api.services.drive.model.User;
-=======
-import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.GeneratedIds;
->>>>>>> mati
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
 
 /* class to demonstarte use of Drive files list API */
 public class GoogleDriveAPI {
@@ -124,10 +115,6 @@ public class GoogleDriveAPI {
             return null;
         } else {
         		for (File file : files) {
-        			
-        			if (file.getParents() == null || !(file.getParents().contains(fileID))) {
-        				service.files().update(file.getId(), file).setAddParents(fileID).execute();
-        			}
         			fileNames[index] = file.getId();
         			index++;
             }
@@ -138,47 +125,43 @@ public class GoogleDriveAPI {
       }
     	
     public static void uploadFile(String fileName, List<String> folderID, java.io.File recording) throws IOException, GeneralSecurityException {
-    	
+    	System.out.println("Now uploading...");
     	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         
-        GeneratedIds gID = service.files().generateIds().setCount(1).execute();
-        List<String> newID = gID.getIds();
+        String gID = service.files().generateIds().setCount(1).toString();
     	File fileMetadata = new File();
     	fileMetadata.setName(fileName);
-    	fileMetadata.setParents(folderID);
-    	fileMetadata.setId(newID.get(0));
+    	fileMetadata.setId(gID);
     	
     	FileContent mediaContent = new FileContent("audio/wav", recording);
-        File file = service.files().create(fileMetadata, mediaContent).setFields("id: '" + newID.get(0) + "'").execute();
+        File file = service.files().create(fileMetadata, mediaContent).execute();
+        
+        System.out.println("Upload Complete!");
     }
     
-<<<<<<< HEAD
+
     public static String getParentOf(String fileID) throws IOException, GeneralSecurityException {
     	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        FileList result = service.files().list()
-        		.setQ("mimeType = 'application/vnd.google-apps.folder'")
-                .setFields("nextPageToken, files(id, name, parents)")
-                .execute();
-        List<File> files = result.getFiles();
+        File result = service.files().get(fileID).setFields("parents").execute(); 
         
-         
-        
-        for (File f: files) {
-        	if (f.getId().equals(fileID)) {
-        		return f.getParents().get(0); 
-        	}
-        }
-		return null;
+        return result.getParents().get(0);
         
     }
-=======
     
-    
->>>>>>> mati
+    public static String getNameOf(String fileID) throws IOException, GeneralSecurityException {
+    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        File result = service.files().get(fileID).setFields("name").execute(); 
+        
+        return result.getName();
+    }
+
 }

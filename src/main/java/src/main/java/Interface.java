@@ -5,10 +5,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -27,6 +32,8 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -107,13 +114,18 @@ public class Interface extends Application implements Initializable{
 	private Button Hidden;
 	
 	@FXML
-	private Button Back;
-	
-	@FXML
 	private ListView<String> driveFolders = new ListView<String>();
 	
 	@FXML
 	private Label currentFolder = new Label(); 
+	
+	@FXML
+	public Button uploadButton;
+	
+	@FXML
+	public Button localUpload;
+	
+	FileChooser fileChooser = new FileChooser();
 	
 	private String[] driveFileNames;
 	private String[] driveFileId;
@@ -121,15 +133,13 @@ public class Interface extends Application implements Initializable{
 	private double xOffset = 0;
 	private double yOffset = 0;
 	
-<<<<<<< HEAD
+
 	private static String driveFolderID = "root";
 	private static String rootFolderID = null;
 	private static String lastID = "root";
 	private static String backToRoot = "Back to MyDrive...";
-=======
-	private String driveFolderID = "root";
-	private String driveFolderName = "My Drive";
->>>>>>> mati
+	private static String driveFolderName = "My Drive";
+
 
 	
 	public void start(Stage primaryStage) {
@@ -143,6 +153,9 @@ public class Interface extends Application implements Initializable{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+	      
 		
 	}
 	
@@ -195,6 +208,54 @@ public class Interface extends Application implements Initializable{
 			}
 	}
 	
+	public void upload(ActionEvent e) {
+		String name = "test";
+		File recording = new File("/RemoteRecord/Recordings/2022-06-06 171904.WAV");
+		List<String> parents = new ArrayList<>(1);
+		parents.add(driveFolderID);
+		try {
+			GoogleDriveAPI.uploadFile(name, parents, recording);
+		} catch (IOException | GeneralSecurityException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+	}
+	
+	public void localUpload(ActionEvent e) {
+		
+		Stage primaryStage = new Stage();
+		
+		String[] fileName = r1.getFileName().split("/");
+		
+		fileChooser.setTitle("Save");
+		fileChooser.setInitialFileName(fileName[1]);
+	    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("WAV", ".wav"));
+		File file = fileChooser.showSaveDialog(primaryStage);
+		
+		Path temp;
+		try {
+			temp = Files.move
+			        (Paths.get(r1.getFile().toURI()),
+			        Paths.get(file.toURI()));
+			 if(temp != null)
+		        {
+		            System.out.println("File renamed and moved successfully");
+		        }
+		        else
+		        {
+		            System.out.println("Failed to move the file");
+		        }
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 
+		       
+		
+		
+				
+	}
+	
 	public static void main(String[] args) throws IOException, GeneralSecurityException {
 		    launch(args);
 		
@@ -220,19 +281,23 @@ public class Interface extends Application implements Initializable{
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-<<<<<<< HEAD
-=======
+
 				int index = driveFolders.getSelectionModel().getSelectedIndex();
-				driveFolderID = driveFileId[index];
-				driveFolders.getItems().removeAll(driveFileNames);
-				System.out.println(driveFolderID);
->>>>>>> mati
+				
+
 				
 				System.out.println("Now changing list...");
-				int index = driveFolders.getSelectionModel().getSelectedIndex();
 				
-				 if (driveFileNames == null || driveFolders.getSelectionModel().getSelectedItem().equals(backToRoot)) { //if back is hit/if there is an empty directory 
-					 driveFolderID = rootFolderID; 
+				
+				 if (driveFolders.getSelectionModel().getSelectedItem().contains("Back to")) { //if back is hit/if there is an empty directory 
+					 String tid;
+					try {
+						tid = GoogleDriveAPI.getParentOf(driveFolderID);
+						driveFolderID = tid; 
+					} catch (IOException | GeneralSecurityException e) {
+						e.printStackTrace();
+					}
+					 
 				
 				 } else { //if navigating to the next folder
 					driveFolderID = driveFileId[index];
@@ -247,12 +312,11 @@ public class Interface extends Application implements Initializable{
 					
 					driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
 					driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
-<<<<<<< HEAD
-				
+	
 				
 				
 					if (driveFileId == null) { //add to empty directory 
-						driveFolders.getItems().add(backToRoot);
+						driveFolders.getItems().add("Back to: " + GoogleDriveAPI.getNameOf(GoogleDriveAPI.getParentOf(driveFolderID)));
 						currentFolder.setText("Current Folder: " + newValue);
 						
 						
@@ -262,19 +326,21 @@ public class Interface extends Application implements Initializable{
 						System.out.println(GoogleDriveAPI.getParentOf(driveFolderID));
 						currentFolder.setText("Current Folder: MyDrive");
 								
-					} else { //going into a new directory 
+					} else {
 						driveFolders.getItems().addAll(driveFileNames);
-						driveFolders.getItems().add(backToRoot);
+						driveFolders.getItems().add("Back to " + GoogleDriveAPI.getNameOf(GoogleDriveAPI.getParentOf(driveFolderID)));
 						currentFolder.setText("Current Folder: " + newValue);
-					}
+					
+				
+					}	
 					
 					
 				
 
-=======
-					driveFolders.getItems().addAll(driveFileNames);
+
 					
->>>>>>> mati
+					
+
 				} catch (IOException | GeneralSecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -288,30 +354,14 @@ public class Interface extends Application implements Initializable{
 			
 		
 			});
-<<<<<<< HEAD
+
 		
 		System.out.println("Ready for next input...");
 	}
 	
-	public void backButton () throws IOException, GeneralSecurityException {
-		if (!driveFolderID.equals("root")) {
-			String tfid = GoogleDriveAPI.getParentOf(driveFolderID);
-			driveFolderID = tfid;
-			
-			driveFolders.getItems().removeAll(driveFileNames);
-			driveFileNames = GoogleDriveAPI.getFileNames(driveFolderID);
-			driveFileId = GoogleDriveAPI.getFileID(driveFolderID);
-			driveFolders.getItems().addAll(driveFileNames);
-			
-		}
-	}
+	
+	
+	
+	
 }
 
-=======
-	}//initialize
-	
-	public void backFolder () {
-		
-}
-}
->>>>>>> mati

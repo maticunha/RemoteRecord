@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.main.java.Interface">
+<Pane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" styleClass="application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.main.java.Interface">
    <children>
       <Text id="RIP" fx:id="RIP" fill="WHITE" layoutX="637.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RECORDING IN PROGRESS" textAlignment="CENTER" wrappingWidth="343.13671875">
          <font>
@@ -49,7 +49,7 @@
             </ImageView>
          </children>
       </Pane>
-      <AnchorPane fx:id="Control_Panel" layoutX="-8.0" layoutY="136.0" prefHeight="284.0" prefWidth="608.0" style="-fx-background-color: black;">
+      <AnchorPane fx:id="Control_Panel" layoutX="-4.0" layoutY="136.0" prefHeight="284.0" prefWidth="608.0" style="-fx-background-color: black;">
          <children>
             <Button id="1" fx:id="Record" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="#recording" prefHeight="126.0" prefWidth="169.0" textAlignment="CENTER" />
             <ImageView fitHeight="267.0" fitWidth="250.0" layoutX="-43.0" layoutY="-17.0">
@@ -72,12 +72,10 @@
                </image>
             </ImageView>
             <ListView fx:id="driveFolders" layoutX="261.0" layoutY="166.0" prefHeight="200.0" prefWidth="200.0" />
-<<<<<<< HEAD
-            <Button fx:id="Back" layoutX="472.0" layoutY="166.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
             <Label fx:id="currentFolder" layoutX="261.0" layoutY="375.0" text="Current Folder: " textFill="WHITE" />
-=======
-            <Button fx:id="back" layoutX="261.0" layoutY="373.0" mnemonicParsing="false" onAction="#backFolder" text="Back" />
->>>>>>> mati
+            <Button fx:id="uploadButton" layoutX="488.0" layoutY="178.0" mnemonicParsing="false" onAction="#upload" text="Upload File" />
+            <Button fx:id="localUpload" layoutX="474.0" layoutY="60.0" mnemonicParsing="false" onAction="#localUpload" text="Local Upload" />
+
          </children></AnchorPane>
    </children>
    <effect>
