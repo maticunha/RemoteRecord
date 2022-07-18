@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -29,6 +32,8 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -115,7 +120,12 @@ public class Interface extends Application implements Initializable{
 	private Label currentFolder = new Label(); 
 	
 	@FXML
-	public Button uploadButton; 
+	public Button uploadButton;
+	
+	@FXML
+	public Button localUpload;
+	
+	FileChooser fileChooser = new FileChooser();
 	
 	private String[] driveFileNames;
 	private String[] driveFileId;
@@ -143,6 +153,9 @@ public class Interface extends Application implements Initializable{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+	      
 		
 	}
 	
@@ -195,7 +208,7 @@ public class Interface extends Application implements Initializable{
 			}
 	}
 	
-	public void upload (ActionEvent e) {
+	public void upload(ActionEvent e) {
 		String name = "test";
 		File recording = new File("/RemoteRecord/Recordings/2022-06-06 171904.WAV");
 		List<String> parents = new ArrayList<>(1);
@@ -206,6 +219,41 @@ public class Interface extends Application implements Initializable{
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
+	}
+	
+	public void localUpload(ActionEvent e) {
+		
+		Stage primaryStage = new Stage();
+		
+		String[] fileName = r1.getFileName().split("/");
+		
+		fileChooser.setTitle("Save");
+		fileChooser.setInitialFileName(fileName[1]);
+	    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("WAV", ".wav"));
+		File file = fileChooser.showSaveDialog(primaryStage);
+		
+		Path temp;
+		try {
+			temp = Files.move
+			        (Paths.get(r1.getFile().toURI()),
+			        Paths.get(file.toURI()));
+			 if(temp != null)
+		        {
+		            System.out.println("File renamed and moved successfully");
+		        }
+		        else
+		        {
+		            System.out.println("Failed to move the file");
+		        }
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 
+		       
+		
+		
+				
 	}
 	
 	public static void main(String[] args) throws IOException, GeneralSecurityException {
